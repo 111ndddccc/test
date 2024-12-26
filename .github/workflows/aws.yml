@@ -1,0 +1,38 @@
+name: CodeQL Analysis
+
+# 触发工作流的事件
+on:
+  push:
+    branches: 
+      - main  # 每次推送到 main 分支时触发扫描
+  pull_request:
+    branches: 
+      - main  # 每次对 main 分支发起拉取请求时触发扫描
+  workflow_dispatch:  # 手动触发工作流
+
+jobs:
+  codeql:
+    runs-on: ubuntu-latest  # 选择运行环境
+
+    steps:
+      # 检出仓库代码
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 设置 CodeQL 分析环境
+      - name: Set up CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: python  # 选择分析的语言，确保你的项目使用的是支持的语言，如 python、javascript 等
+          
+      # 运行 CodeQL 分析
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          output: codeql-results # 输出结果的文件夹名称，可以自定义
+
+      # 上传分析结果报告到 GitHub Actions
+      - name: Upload CodeQL Results
+        uses: github/codeql-action/upload-results@v2
+        with:
+          result-dir: codeql-results  # 指定分析结果文件夹路径
