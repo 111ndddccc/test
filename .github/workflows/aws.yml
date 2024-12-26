@@ -3,10 +3,10 @@ name: CodeQL Analysis
 # 触发工作流的事件
 on:
   push:
-    branches: 
+    branches:
       - main  # 每次推送到 main 分支时触发扫描
   pull_request:
-    branches: 
+    branches:
       - main  # 每次对 main 分支发起拉取请求时触发扫描
   workflow_dispatch:  # 手动触发工作流
 
@@ -30,9 +30,3 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           output: codeql-results # 输出结果的文件夹名称，可以自定义
-
-      # 上传分析结果报告到 GitHub Actions
-      - name: Upload CodeQL Results
-        uses: github/codeql-action/upload-results@v1  # 使用 v1 版本
-        with:
-          result-dir: codeql-results  # 指定分析结果文件夹路径
