@@ -33,6 +33,6 @@ jobs:
 
       # 上传分析结果报告到 GitHub Actions
       - name: Upload CodeQL Results
-        uses: github/codeql-action/upload-results@v2
+        uses: github/codeql-action/upload-results@v1  # 使用 v1 版本
         with:
           result-dir: codeql-results  # 指定分析结果文件夹路径
